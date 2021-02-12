@@ -1,0 +1,8 @@
+<v-form v-model="isValid" ref="form">
+  
+  <v-text-field label="Id" disabled v-if="showId" value="formData.id"></v-text-field>
+  <v-text-field v-model="formData.fullName" label="FullName" :rules="[notEmpty]"> </v-text-field>
+
+  <v-btn color="primary" block @click="onClick">Submit</v-btn>
+  <v-btn color="error" block @click="onClick">Cancel</v-btn>
+</v-form>
