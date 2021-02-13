@@ -1,13 +1,12 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import { EmployeesView, EmployeesCreate } from '@/views';
+import { EmployeesView, EmployeesCreateUpdateForm } from '@/views';
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: '/employees-view',
-    // path: '/',
     name: 'EmployeesView',
     component: EmployeesView,
     meta: {
@@ -15,12 +14,20 @@ const routes = [
     }
   },
   {
-    // path: '/employees-create',
-    path: '/',
+    path: '/employees-create',
     name: 'EmployeesCreate',
-    component: EmployeesCreate,
+    component: EmployeesCreateUpdateForm,
     meta: {
       title: 'Add new employee'
+    }
+  },
+  {
+    path: '/employees-update/:editId',
+    name: 'EmployeesUpdate',
+    component: EmployeesCreateUpdateForm,
+    props: true,
+    meta: {
+      title: 'Edit employee'
     }
   }
 ];

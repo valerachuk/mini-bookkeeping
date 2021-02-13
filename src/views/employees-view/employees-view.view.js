@@ -1,5 +1,5 @@
 import { DatabaseViewTable } from '@/components';
-import { mapState } from 'vuex';
+import { EmployeesRepository } from '@/services';
 
 export default {
 
@@ -7,24 +7,37 @@ export default {
     DatabaseViewTable
   },
 
-  computed: {
-    ...mapState('employees', ['items', 'fields'])
-  },
-
-  mounted () {
-    this.$store.dispatch('employees/load');
-  },
+  data: () => ({
+    fields: [],
+    items: []
+  }),
 
   methods: {
     createItem () {
-      console.log('new');
+      this.$router.push({ name: 'EmployeesCreate' });
     },
     deleteItem (id) {
-      console.log('delete', id);
+      EmployeesRepository
+        .delete(id)
+        .then(() => {
+          this.readItems();
+        });
     },
     updateItem (id) {
-      console.log('edit', id);
+      this.$router.push({ name: 'EmployeesUpdate', params: { editId: id } });
+    },
+    readItems () {
+      EmployeesRepository
+        .readPrettyView()
+        .then(({ items, fields }) => {
+          this.items = items;
+          this.fields = fields;
+        });
     }
+  },
+
+  mounted () {
+    this.readItems();
   }
 
 };
