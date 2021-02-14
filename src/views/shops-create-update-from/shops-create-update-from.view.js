@@ -1,5 +1,5 @@
 import { NotEmptyStringValidationMixin } from '@/mixins';
-import { ShopsRepository } from '@/services';
+import { ShopsRepository, NotificationsService } from '@/services';
 
 export default {
 
@@ -40,10 +40,16 @@ export default {
       let loadingPromise;
       if (this.isEditForm) {
         loadingPromise = ShopsRepository
-          .update(this.formData);
+          .update(this.formData)
+          .then(() => {
+            NotificationsService.fireSuccess(`Successfully updated a shop with id: ${this.formData.Id}`);
+          });
       } else {
         loadingPromise = ShopsRepository
-          .create(this.formData);
+          .create(this.formData)
+          .then(() => {
+            NotificationsService.fireSuccess('Successfully created a shop');
+          });
       }
 
       loadingPromise

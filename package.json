@@ -2,6 +2,9 @@
   "name": "mini-bookkeeping",
   "version": "0.1.0",
   "private": true,
+  "author": {
+    "name": "Valerii"
+  },
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",

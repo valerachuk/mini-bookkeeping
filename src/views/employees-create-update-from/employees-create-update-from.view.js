@@ -1,5 +1,5 @@
 import { NotEmptyStringValidationMixin, NotNullValidationMixin } from '@/mixins';
-import { DepartmentsRepository, EmployeesRepository } from '@/services';
+import { DepartmentsRepository, EmployeesRepository, NotificationsService } from '@/services';
 
 export default {
 
@@ -22,6 +22,7 @@ export default {
       FullName: '',
       DepartmentId: null
     },
+    departments: [],
     formDisabled: true
   }),
 
@@ -42,10 +43,16 @@ export default {
       let loadingPromise;
       if (this.isEditForm) {
         loadingPromise = EmployeesRepository
-          .update(this.formData);
+          .update(this.formData)
+          .then(() => {
+            NotificationsService.fireSuccess(`Successfully updated an employee with id: ${this.formData.Id}`);
+          });
       } else {
         loadingPromise = EmployeesRepository
-          .create(this.formData);
+          .create(this.formData)
+          .then(() => {
+            NotificationsService.fireSuccess('Successfully created an employee');
+          });
       }
 
       loadingPromise

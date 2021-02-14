@@ -18,6 +18,7 @@ async function createWindow () {
   mainWindow = new BrowserWindow({
     width: 1920,
     height: 1080,
+    title: 'Mini Bookkeeping',
     webPreferences: {
 
       // Use pluginOptions.nodeIntegration, leave this alone

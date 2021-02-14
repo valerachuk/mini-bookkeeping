@@ -1,5 +1,5 @@
 import { DatabaseViewTable } from '@/components';
-import { ShopsRepository } from '@/services';
+import { ShopsRepository, NotificationsService } from '@/services';
 
 export default {
 
@@ -20,6 +20,7 @@ export default {
       ShopsRepository
         .delete(id)
         .then(() => {
+          NotificationsService.fireSuccess(`Successfully deleted a shop with id: ${id}`);
           this.readItems();
         });
     },

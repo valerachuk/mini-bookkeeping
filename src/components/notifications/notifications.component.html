@@ -1,0 +1,14 @@
+<div class="notifications-wrapper">
+  <v-alert
+    v-for="notification of notifications"
+    :key="notification.id"
+    border="left"
+    elevation="10"
+    :type="notification.type"
+    dismissible
+    @input="closeAlert(notification)"
+    transition="scale-transition"
+  >
+    {{notification.text}}
+  </v-alert>
+</div>

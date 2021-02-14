@@ -4,7 +4,12 @@ module.exports = {
   ],
   pluginOptions: {
     electronBuilder: {
-      nodeIntegration: true
+      nodeIntegration: true,
+      builderOptions: {
+        productName: 'Mini Bookkeeping',
+        appId: 'com.valerii.mini-bookkeeping',
+        copyright: 'Copyright © 2021 Valerii'
+      }
     }
   }
 };
