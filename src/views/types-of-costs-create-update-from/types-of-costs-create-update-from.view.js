@@ -67,8 +67,10 @@ export default {
       TypesOfCostsRepository
         .read(this.editId)
         .then(result => {
-          this.formData = result;
-          this.formData.ThresholdPerMonth = this.formData.ThresholdPerMonth.toString();
+          this.formData = {
+            ...result,
+            ThresholdPerMonth: result.ThresholdPerMonth.toString()
+          };
           this.formDisabled = false;
         });
     } else {

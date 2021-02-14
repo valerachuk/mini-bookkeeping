@@ -17,6 +17,10 @@ export default {
     return pool.query('SELECT * FROM employees_pretty_view')
       .then(([result, fields]) => ({ items: result, fields: fields.map(field => field.name) }));
   },
+  readIdFullName () {
+    return pool.query('SELECT Id, FullName FROM employees')
+      .then(([result, fields]) => ({ items: result, fields: fields.map(field => field.name) }));
+  },
   update (formData) {
     return pool.query('UPDATE employees SET FullName=?, DepartmentId=? WHERE Id=?;', [formData.FullName, formData.DepartmentId, formData.Id]);
   },

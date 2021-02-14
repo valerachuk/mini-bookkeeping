@@ -8,7 +8,9 @@ import {
   ShopsView,
   ShopsCreateUpdateForm,
   TypesOfCostsView,
-  TypesOfCostsCreateUpdateForm
+  TypesOfCostsCreateUpdateForm,
+  ExpensesView,
+  ExpensesCreateUpdateForm
 } from '@/views';
 
 Vue.use(VueRouter);
@@ -118,6 +120,31 @@ const routes = [
     props: true,
     meta: {
       title: 'Edit type of cost'
+    }
+  },
+  {
+    path: '/expenses-view',
+    name: 'ExpensesView',
+    component: ExpensesView,
+    meta: {
+      title: 'Expenses'
+    }
+  },
+  {
+    path: '/expenses-create',
+    name: 'ExpensesCreate',
+    component: ExpensesCreateUpdateForm,
+    meta: {
+      title: 'Add new expense'
+    }
+  },
+  {
+    path: '/expenses-update/:editId',
+    name: 'ExpensesUpdate',
+    component: ExpensesCreateUpdateForm,
+    props: true,
+    meta: {
+      title: 'Edit expense'
     }
   }
 ];

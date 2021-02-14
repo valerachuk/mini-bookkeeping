@@ -1,0 +1,84 @@
+<v-form
+  v-model="isValid"
+  ref="form"
+  :disabled="formDisabled"
+  @submit.prevent="onSubmit"
+>
+  <v-text-field
+    label="Id"
+    disabled
+    v-if="isEditForm"
+    :value="formData.Id"
+  ></v-text-field>
+  <v-text-field
+    v-model="formData.Description"
+    label="Description"
+    :rules="[notEmpty]"
+  >
+  </v-text-field>
+  <v-text-field
+    type="number"
+    v-model="formData.Price"
+    label="Price"
+    :rules="[notEmpty, greaterEquals(0)]"
+  >
+  </v-text-field>
+
+  <v-menu
+    v-model="dateMenu"
+    :close-on-content-click="false"
+    transition="scale-transition"
+    offset-y
+    max-width="290px"
+    min-width="auto"
+  >
+    <template v-slot:activator="{ on, attrs }">
+      <v-text-field
+        :value="formData.DateOfPurchase"
+        prepend-icon="mdi-calendar"
+        readonly
+        v-bind="attrs"
+        v-on="on"
+      ></v-text-field>
+    </template>
+    <v-date-picker
+      v-model="formData.DateOfPurchase"
+      @input="dateMenu = false"
+    ></v-date-picker>
+  </v-menu>
+
+  <v-autocomplete
+    v-model="formData.DepartmentId"
+    :items="departments"
+    label="Department"
+    :rules="[notNull]"
+  ></v-autocomplete>
+  <v-autocomplete
+    v-model="formData.EmployeeId"
+    :items="employees"
+    label="Employee"
+    :rules="[notNull]"
+  ></v-autocomplete>
+  <v-autocomplete
+    v-model="formData.TypeOfCostId"
+    :items="typesOfCosts"
+    label="Type of cost"
+    :rules="[notNull]"
+  ></v-autocomplete>
+  <v-autocomplete
+    v-model="formData.ShopId"
+    :items="shops"
+    label="Shop"
+    :rules="[notNull]"
+  ></v-autocomplete>
+
+  <v-btn
+    color="primary"
+    type="submit"
+    block
+    :disabled="formDisabled"
+    class="my-3"
+    >Submit</v-btn
+  >
+  <v-btn color="error" block :to="{ name: 'ExpensesView' }">Cancel</v-btn>
+</v-form>

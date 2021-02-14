@@ -13,6 +13,10 @@ export default {
     return pool.query('SELECT * FROM types_of_costs WHERE Id=?', [id])
       .then(([result]) => result[0]);
   },
+  readIdName () {
+    return pool.query('SELECT Id, Name FROM types_of_costs')
+      .then(([result, fields]) => ({ items: result, fields: fields.map(field => field.name) }));
+  },
   update (formData) {
     return pool.query('UPDATE types_of_costs SET `Name`=?, `Description`=?, ThresholdPerMonth=? WHERE Id=?', [formData.Name, formData.Description, formData.ThresholdPerMonth, formData.Id]);
   },
