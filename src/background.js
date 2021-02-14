@@ -106,6 +106,14 @@ let mainMenuTemplate = [
             name: 'DepartmentsView'
           });
         }
+      },
+      {
+        label: 'Shops',
+        click () {
+          routerPush({
+            name: 'ShopsView'
+          });
+        }
       }
     ]
   }

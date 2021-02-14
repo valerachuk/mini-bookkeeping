@@ -22,7 +22,6 @@ export default {
       FullName: '',
       DepartmentId: null
     },
-    departments: [],
     formDisabled: true
   }),
 

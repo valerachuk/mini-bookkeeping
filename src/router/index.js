@@ -1,6 +1,13 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import { EmployeesView, EmployeesCreateUpdateForm, DepartmentsView, DepartmentsCreateUpdateForm } from '@/views';
+import {
+  EmployeesView,
+  EmployeesCreateUpdateForm,
+  DepartmentsView,
+  DepartmentsCreateUpdateForm,
+  ShopsView,
+  ShopsCreateUpdateForm
+} from '@/views';
 
 Vue.use(VueRouter);
 
@@ -59,6 +66,31 @@ const routes = [
     props: true,
     meta: {
       title: 'Edit department'
+    }
+  },
+  {
+    path: '/shops-view',
+    name: 'ShopsView',
+    component: ShopsView,
+    meta: {
+      title: 'Shops'
+    }
+  },
+  {
+    path: '/shops-create',
+    name: 'ShopsCreate',
+    component: ShopsCreateUpdateForm,
+    meta: {
+      title: 'Add new shop'
+    }
+  },
+  {
+    path: '/shops-update/:editId',
+    name: 'ShopsUpdate',
+    component: ShopsCreateUpdateForm,
+    props: true,
+    meta: {
+      title: 'Edit shop'
     }
   }
 ];
