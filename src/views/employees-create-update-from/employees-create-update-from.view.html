@@ -4,7 +4,7 @@
   <v-text-field v-model="formData.FullName" label="FullName" :rules="[notEmpty]"> </v-text-field>
   <v-autocomplete v-model="formData.DepartmentId" :items="departments" label="Department" :rules="[notNull]"></v-autocomplete>
 
-  <v-btn color="primary" type="submit" block :disabled="formDisabled">Submit</v-btn>
+  <v-btn color="primary" type="submit" block :disabled="formDisabled" class="my-3">Submit</v-btn>
   <v-btn color="error" block :to="{ name: 'EmployeesView' }">Cancel</v-btn>
 
 </v-form>

@@ -35,10 +35,11 @@ export default {
   methods: {
     onSubmit () {
       this.$refs.form.validate();
-      if (this.isValid) {
-        this.formDisabled = true;
+      if (!this.isValid) {
+        return;
       }
 
+      this.formDisabled = true;
       let loadingPromise;
       if (this.isEditForm) {
         loadingPromise = EmployeesRepository

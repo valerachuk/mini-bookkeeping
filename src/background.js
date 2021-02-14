@@ -1,9 +1,12 @@
 'use strict';
 
-import { app, protocol, BrowserWindow } from 'electron';
+import { app, shell, protocol, BrowserWindow, Menu } from 'electron';
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib';
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer';
+import defaultMenu from 'electron-default-menu';
 const isDevelopment = process.env.NODE_ENV !== 'production';
+
+let mainWindow;
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
@@ -12,7 +15,7 @@ protocol.registerSchemesAsPrivileged([
 
 async function createWindow () {
   // Create the browser window.
-  const win = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 1920,
     height: 1080,
     webPreferences: {
@@ -25,12 +28,12 @@ async function createWindow () {
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
-    await win.loadURL(process.env.WEBPACK_DEV_SERVER_URL);
-    if (!process.env.IS_TEST) win.webContents.openDevTools();
+    await mainWindow.loadURL(process.env.WEBPACK_DEV_SERVER_URL);
+    if (!process.env.IS_TEST) mainWindow.webContents.openDevTools();
   } else {
     createProtocol('app');
     // Load the index.html when not in development
-    win.loadURL('app://./index.html');
+    mainWindow.loadURL('app://./index.html');
   }
 }
 
@@ -62,6 +65,7 @@ app.on('ready', async () => {
     }
   }
   createWindow();
+  buildMenu();
 });
 
 // Exit cleanly on request from parent process in development mode.
@@ -77,4 +81,42 @@ if (isDevelopment) {
       app.quit();
     });
   }
+}
+
+function routerPush (route) {
+  mainWindow.webContents.send('router:push', route);
+}
+
+let mainMenuTemplate = [
+  {
+    label: 'Data Management',
+    submenu: [
+      {
+        label: 'Employees',
+        click () {
+          routerPush({
+            name: 'EmployeesView'
+          });
+        }
+      },
+      {
+        label: 'Departments',
+        click () {
+          routerPush({
+            name: 'DepartmentsView'
+          });
+        }
+      }
+    ]
+  }
+];
+
+function buildMenu () {
+  // Build menu from template
+  if (isDevelopment) {
+    mainMenuTemplate = defaultMenu(app, shell).concat(mainMenuTemplate);
+  }
+  const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
+  // Insert menu
+  Menu.setApplicationMenu(mainMenu);
 }

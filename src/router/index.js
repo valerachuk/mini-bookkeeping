@@ -1,10 +1,16 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import { EmployeesView, EmployeesCreateUpdateForm } from '@/views';
+import { EmployeesView, EmployeesCreateUpdateForm, DepartmentsView, DepartmentsCreateUpdateForm } from '@/views';
 
 Vue.use(VueRouter);
 
 const routes = [
+  {
+    path: '/',
+    redirect: {
+      name: 'EmployeesView'
+    }
+  },
   {
     path: '/employees-view',
     name: 'EmployeesView',
@@ -28,6 +34,31 @@ const routes = [
     props: true,
     meta: {
       title: 'Edit employee'
+    }
+  },
+  {
+    path: '/departments-view',
+    name: 'DepartmentsView',
+    component: DepartmentsView,
+    meta: {
+      title: 'Departments'
+    }
+  },
+  {
+    path: '/departments-create',
+    name: 'DepartmentsCreate',
+    component: DepartmentsCreateUpdateForm,
+    meta: {
+      title: 'Add new department'
+    }
+  },
+  {
+    path: '/departments-update/:editId',
+    name: 'DepartmentsUpdate',
+    component: DepartmentsCreateUpdateForm,
+    props: true,
+    meta: {
+      title: 'Edit department'
     }
   }
 ];

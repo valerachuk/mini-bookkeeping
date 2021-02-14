@@ -1,0 +1,9 @@
+<v-form v-model="isValid" ref="form" :disabled="formDisabled" @submit="onSubmit">
+  
+  <v-text-field label="Id" disabled v-if="isEditForm" :value="formData.Id"></v-text-field>
+  <v-text-field v-model="formData.Name" label="Name" :rules="[notEmpty]"> </v-text-field>
+
+  <v-btn color="primary" type="submit" block :disabled="formDisabled" class="my-3">Submit</v-btn>
+  <v-btn color="error" block :to="{ name: 'DepartmentsView' }">Cancel</v-btn>
+
+</v-form>
