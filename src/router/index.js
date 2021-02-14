@@ -6,7 +6,9 @@ import {
   DepartmentsView,
   DepartmentsCreateUpdateForm,
   ShopsView,
-  ShopsCreateUpdateForm
+  ShopsCreateUpdateForm,
+  TypesOfCostsView,
+  TypesOfCostsCreateUpdateForm
 } from '@/views';
 
 Vue.use(VueRouter);
@@ -91,6 +93,31 @@ const routes = [
     props: true,
     meta: {
       title: 'Edit shop'
+    }
+  },
+  {
+    path: '/types-of-costs-view',
+    name: 'TypesOfCostsView',
+    component: TypesOfCostsView,
+    meta: {
+      title: 'Types of costs'
+    }
+  },
+  {
+    path: '/types-of-costs-create',
+    name: 'TypesOfCostsCreate',
+    component: TypesOfCostsCreateUpdateForm,
+    meta: {
+      title: 'Add new type of cost'
+    }
+  },
+  {
+    path: '/types-of-costs-update/:editId',
+    name: 'TypesOfCostsUpdate',
+    component: TypesOfCostsCreateUpdateForm,
+    props: true,
+    meta: {
+      title: 'Edit type of cost'
     }
   }
 ];

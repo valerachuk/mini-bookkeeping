@@ -12,7 +12,7 @@ export default {
   fireSuccess (text) {
     this.fireNotification({
       type: 'success',
-      timeout: 3000,
+      timeout: 3500,
       text
     });
   },

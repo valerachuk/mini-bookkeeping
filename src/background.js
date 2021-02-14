@@ -115,6 +115,22 @@ let mainMenuTemplate = [
             name: 'ShopsView'
           });
         }
+      },
+      {
+        label: 'TypesOfCosts',
+        click () {
+          routerPush({
+            name: 'TypesOfCostsView'
+          });
+        }
+      },
+      {
+        label: 'Expenses',
+        click () {
+          routerPush({
+            name: 'ExpensesView'
+          });
+        }
       }
     ]
   }

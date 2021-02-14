@@ -1,4 +1,4 @@
-<v-form v-model="isValid" ref="form" :disabled="formDisabled" @submit="onSubmit">
+<v-form v-model="isValid" ref="form" :disabled="formDisabled" @submit.prevent="onSubmit">
   
   <v-text-field label="Id" disabled v-if="isEditForm" :value="formData.Id"></v-text-field>
   <v-text-field v-model="formData.FullName" label="FullName" :rules="[notEmpty]"> </v-text-field>
