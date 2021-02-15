@@ -28,6 +28,11 @@ export default {
   data: () => ({
     isValid: false,
     dateMenu: false,
+
+    showThresholdError: false,
+    currentPeriodSpend: 0,
+    thresholdPerMonth: 0,
+
     formData: {
       Description: '',
       DateOfPurchase: ISO8601DateFormatter.formatDate(new Date()),
@@ -37,6 +42,7 @@ export default {
       TypeOfCostId: null,
       ShopId: null
     },
+
     departments: [],
     employees: [],
     typesOfCosts: [],
@@ -47,6 +53,9 @@ export default {
   computed: {
     isEditForm () {
       return !!this.editId;
+    },
+    isPeriodSpendError () {
+      return this.thresholdPerMonth - this.currentPeriodSpend - this.formData.Price < 0;
     }
   },
 
@@ -57,6 +66,30 @@ export default {
         return;
       }
 
+      const date = new Date(this.formData.DateOfPurchase);
+
+      let validationLoading;
+
+      if (this.isEditForm) {
+        validationLoading = ExpensesRepository
+          .readThresholdCurrentSpendPerPeriodWhthoutCurrentExpense(this.formData.TypeOfCostId, date.getFullYear(), date.getMonth() + 1, this.formData.Id);
+      } else {
+        validationLoading = ExpensesRepository
+          .readThresholdCurrentSpendPerPeriod(this.formData.TypeOfCostId, date.getFullYear(), date.getMonth() + 1);
+      }
+
+      validationLoading
+        .then(response => {
+          this.thresholdPerMonth = response.ThresholdPerMonth;
+          this.currentPeriodSpend = response.CurrentSpend;
+          if (this.isPeriodSpendError) {
+            this.showThresholdError = true;
+          } else {
+            this.sendForm();
+          }
+        });
+    },
+    sendForm () {
       this.formDisabled = true;
       let loadingPromise;
       if (this.isEditForm) {

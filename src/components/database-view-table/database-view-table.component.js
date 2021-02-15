@@ -14,6 +14,10 @@ export default {
     fields: {
       type: Array,
       required: true
+    },
+    showDownloadIcon: {
+      type: Boolean,
+      default: false
     }
   },
 

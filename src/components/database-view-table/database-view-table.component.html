@@ -24,6 +24,14 @@
         </template>
         <span>Delete</span>
       </v-tooltip>
+      <v-tooltip bottom v-if="showDownloadIcon">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn icon v-bind="attrs" v-on="on" @click="$emit('download', item.Id)">
+            <v-icon>mdi-download</v-icon>
+          </v-btn>
+        </template>
+        <span>Download report</span>
+      </v-tooltip>
     </template>
   </v-data-table>
 

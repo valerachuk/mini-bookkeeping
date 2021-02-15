@@ -1,6 +1,6 @@
 'use strict';
 
-import { app, shell, protocol, BrowserWindow, Menu } from 'electron';
+import { app, shell, protocol, BrowserWindow, Menu, ipcMain, dialog } from 'electron';
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib';
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer';
 import defaultMenu from 'electron-default-menu';
@@ -145,3 +145,8 @@ function buildMenu () {
   // Insert menu
   Menu.setApplicationMenu(mainMenu);
 }
+
+ipcMain.on('show-save-dialog', (e, options) => {
+  dialog.showSaveDialog(mainWindow, options)
+    .then(dialogDoneInfo => e.reply('save-dialog-callback', dialogDoneInfo));
+});

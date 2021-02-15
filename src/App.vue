@@ -1,8 +1,6 @@
 <template>
   <v-app>
-
-    <notifications>
-    </notifications>
+    <notifications> </notifications>
 
     <v-app-bar app color="primary" dark>
       <v-toolbar-title>
@@ -11,13 +9,10 @@
     </v-app-bar>
 
     <v-main>
-
       <v-container>
         <router-view></router-view>
       </v-container>
-
     </v-main>
-
   </v-app>
 </template>
 
@@ -27,20 +22,15 @@ import { NotificationsService } from '@/services';
 import { ipcRenderer } from 'electron';
 
 export default {
-
   components: {
     Notifications
   },
 
-  methods: {
-    errorhandler (e) {
-      NotificationsService.fireError(e.reason.message);
-    }
-  },
-
   mounted () {
     this.routeTitle = this.$route.meta.title;
-    window.onunhandledrejection = this.errorhandler;
+    window.onunhandledrejection = e =>
+      NotificationsService.fireError(e.reason.message);
+    window.onerror = e => NotificationsService.fireError(e);
 
     ipcRenderer.on('router:push', (_e, route) => {
       if (this.$route.name === route.name) return;

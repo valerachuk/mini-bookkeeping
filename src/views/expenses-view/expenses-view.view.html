@@ -1,2 +1,10 @@
-<database-view-table :fields="fields" :items="items" @create="createItem" @delete="deleteItem" @update="updateItem">
+<database-view-table
+  showDownloadIcon
+  :fields="fields"
+  :items="items"
+  @create="createItem"
+  @delete="deleteItem"
+  @update="updateItem"
+  @download="downloadReport"
+>
 </database-view-table>

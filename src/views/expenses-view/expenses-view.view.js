@@ -1,5 +1,10 @@
 import { DatabaseViewTable } from '@/components';
-import { ExpensesRepository, NotificationsService, ISO8601DateFormatter } from '@/services';
+import {
+  ExpensesRepository,
+  NotificationsService,
+  ISO8601DateFormatter,
+  ExpensesReportService
+} from '@/services';
 
 export default {
 
@@ -33,10 +38,13 @@ export default {
         .then(({ items, fields }) => {
           this.items = items.map(item => ({
             ...item,
-            DateOFPurchase: ISO8601DateFormatter.formatDate(item.DateOFPurchase)
+            DateOfPurchase: ISO8601DateFormatter.formatDate(item.DateOfPurchase)
           }));
           this.fields = fields;
         });
+    },
+    downloadReport (id) {
+      ExpensesReportService.requestShowingSaveDialog(id);
     }
   },
 

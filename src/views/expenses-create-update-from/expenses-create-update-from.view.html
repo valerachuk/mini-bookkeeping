@@ -43,7 +43,7 @@
     </template>
     <v-date-picker
       v-model="formData.DateOfPurchase"
-      @input="dateMenu = false"
+      @input="dateMenu = false; showThresholdError = false;"
     ></v-date-picker>
   </v-menu>
 
@@ -60,6 +60,7 @@
     :rules="[notNull]"
   ></v-autocomplete>
   <v-autocomplete
+    @input="showThresholdError = false;"
     v-model="formData.TypeOfCostId"
     :items="typesOfCosts"
     label="Type of cost"
@@ -71,6 +72,16 @@
     label="Shop"
     :rules="[notNull]"
   ></v-autocomplete>
+
+  <p
+    v-if="showThresholdError && isPeriodSpendError"
+    class="red--text"
+  >
+    You can't spend more than <b>{{thresholdPerMonth}}</b> in
+    <b>{{typesOfCosts.find(toc => toc.value === formData.TypeOfCostId).text}}</b> in specified month.<br />Current spend:
+    <b>{{currentPeriodSpend}}</b>.<br />You can max
+    <b>{{thresholdPerMonth - currentPeriodSpend}}</b> in this month.
+  </p>
 
   <v-btn
     color="primary"

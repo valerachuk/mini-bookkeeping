@@ -16,9 +16,35 @@ export default {
     return pool.query('SELECT * FROM expenses WHERE Id=?', [id])
       .then(([result]) => result[0]);
   },
-  readPrettyView () {
-    return pool.query('SELECT * FROM expenses_pretty_view')
-      .then(([result, fields]) => ({ items: result, fields: fields.map(field => field.name) }));
+  readPrettyView (id) {
+    if (id === undefined) {
+      return pool.query('SELECT * FROM expenses_pretty_view')
+        .then(([result, fields]) => ({ items: result, fields: fields.map(field => field.name) }));
+    }
+    return pool.query('SELECT * FROM expenses_pretty_view WHERE Id=?', [id])
+      .then(([result]) => result[0]);
+  },
+  readThresholdCurrentSpendPerPeriod (typeOfCostId, year, month) {
+    return pool.query(`
+      select t.ThresholdPerMonth, coalesce(sum(e.Price), 0) as CurrentSpend
+      from expenses as e
+      right join types_of_costs as t
+      on e.TypeOfCostId = t.Id and month(e.DateOfPurchase) = ? and year(e.DateOfPurchase) = ?
+      where t.Id = ?
+      group by t.Id;
+    `, [month, year, typeOfCostId])
+      .then(([result]) => result[0]); ;
+  },
+  readThresholdCurrentSpendPerPeriodWhthoutCurrentExpense (typeOfCostId, year, month, editingId) {
+    return pool.query(`
+      select t.ThresholdPerMonth, coalesce(sum(e.Price), 0) as CurrentSpend
+      from expenses as e
+      right join types_of_costs as t
+      on e.TypeOfCostId = t.Id and month(e.DateOfPurchase) = ? and year(e.DateOfPurchase) = ? and e.Id != ?
+      where t.Id = ?
+      group by t.Id;
+    `, [month, year, editingId, typeOfCostId])
+      .then(([result]) => result[0]); ;
   },
   update (formData) {
     return pool.query(
