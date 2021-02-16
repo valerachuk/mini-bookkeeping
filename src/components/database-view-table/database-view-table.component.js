@@ -15,14 +15,7 @@ export default {
       type: Array,
       required: true
     },
-    showDownloadIcon: {
-      type: Boolean,
-      default: false
-    },
-    showActions: {
-      type: Boolean,
-      default: true
-    }
+    showDownloadIcon: Boolean
   },
 
   computed: {

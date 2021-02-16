@@ -4,6 +4,7 @@ export { default as ExpensesRepository } from '@/services/expenses-repository.se
 export { default as DepartmentsRepository } from '@/services/departments-repository.service';
 export { default as ShopsRepository } from '@/services/shops-repository.service';
 export { default as TypesOfCostsRepository } from '@/services/types-of-costs-repository.service';
+export { default as AnalyticsRepository } from '@/services/analytics-repository.service';
 export { default as NotificationsService } from '@/services/notifications-service.service';
 export { default as ISO8601DateFormatter } from '@/services/iso8601-date-formatter.service';
 export { default as ExpensesReportService } from '@/services/expenses-report-service.service';
