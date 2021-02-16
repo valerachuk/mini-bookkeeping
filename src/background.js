@@ -133,6 +133,32 @@ let mainMenuTemplate = [
         }
       }
     ]
+  },
+  {
+    label: 'Analytics',
+    submenu: [
+      {
+        label: 'Open Analytics',
+        click () {
+          routerPush({
+            name: 'Analytics'
+          });
+        }
+      }
+    ]
+  },
+  {
+    label: 'Administration',
+    submenu: [
+      {
+        label: 'Open Admin Tools',
+        click () {
+          routerPush({
+            name: 'Administration'
+          });
+        }
+      }
+    ]
   }
 ];
 

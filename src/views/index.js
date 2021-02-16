@@ -8,3 +8,5 @@ export { default as DepartmentsCreateUpdateForm } from '@/views/departments-crea
 export { default as ShopsCreateUpdateForm } from '@/views/shops-create-update-from/shops-create-update-from.view.vue';
 export { default as TypesOfCostsCreateUpdateForm } from '@/views/types-of-costs-create-update-from/types-of-costs-create-update-from.view.vue';
 export { default as ExpensesCreateUpdateForm } from '@/views/expenses-create-update-from/expenses-create-update-from.view.vue';
+export { default as Analytics } from '@/views/analytics/analytics.view.vue';
+export { default as Administration } from '@/views/administration/administration.view.vue';

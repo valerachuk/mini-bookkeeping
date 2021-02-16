@@ -4,5 +4,6 @@ export default {
   host: 'localhost',
   user: 'root',
   password: 'your password',
-  database: 'your default database'
+  database: 'your default database',
+  multipleStatements: true
 };

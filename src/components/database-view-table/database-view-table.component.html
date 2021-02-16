@@ -1,5 +1,4 @@
 <div>
-
   <v-data-table :headers="headers" :items="items" :items-per-page="-1">
     <template v-slot:top>
       <v-toolbar flat>
@@ -7,10 +6,15 @@
         <v-btn color="primary" @click="$emit('create')">Create new</v-btn>
       </v-toolbar>
     </template>
-    <template v-slot:item.actions="{ item }">
+    <template v-if="showActions" v-slot:item.actions="{ item }">
       <v-tooltip bottom>
         <template v-slot:activator="{ on, attrs }">
-          <v-btn icon v-bind="attrs" v-on="on" @click="$emit('update', item.Id)">
+          <v-btn
+            icon
+            v-bind="attrs"
+            v-on="on"
+            @click="$emit('update', item.Id)"
+          >
             <v-icon>mdi-pen</v-icon>
           </v-btn>
         </template>
@@ -18,7 +22,12 @@
       </v-tooltip>
       <v-tooltip bottom>
         <template v-slot:activator="{ on, attrs }">
-          <v-btn icon v-bind="attrs" v-on="on" @click="pendingToDelete = item.Id; deleteDialog = true;">
+          <v-btn
+            icon
+            v-bind="attrs"
+            v-on="on"
+            @click="pendingToDelete = item.Id; deleteDialog = true;"
+          >
             <v-icon>mdi-delete</v-icon>
           </v-btn>
         </template>
@@ -26,7 +35,12 @@
       </v-tooltip>
       <v-tooltip bottom v-if="showDownloadIcon">
         <template v-slot:activator="{ on, attrs }">
-          <v-btn icon v-bind="attrs" v-on="on" @click="$emit('download', item.Id)">
+          <v-btn
+            icon
+            v-bind="attrs"
+            v-on="on"
+            @click="$emit('download', item.Id)"
+          >
             <v-icon>mdi-download</v-icon>
           </v-btn>
         </template>
@@ -46,11 +60,14 @@
           Cancel
         </v-btn>
 
-        <v-btn color="error" text @click="deleteDialog = false; $emit('delete', pendingToDelete);">
+        <v-btn
+          color="error"
+          text
+          @click="deleteDialog = false; $emit('delete', pendingToDelete);"
+        >
           Agree
         </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
-
 </div>

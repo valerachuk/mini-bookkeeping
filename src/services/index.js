@@ -7,3 +7,4 @@ export { default as TypesOfCostsRepository } from '@/services/types-of-costs-rep
 export { default as NotificationsService } from '@/services/notifications-service.service';
 export { default as ISO8601DateFormatter } from '@/services/iso8601-date-formatter.service';
 export { default as ExpensesReportService } from '@/services/expenses-report-service.service';
+export { default as DatabaseAdministration } from './database-administration.service';

@@ -10,7 +10,9 @@ import {
   TypesOfCostsView,
   TypesOfCostsCreateUpdateForm,
   ExpensesView,
-  ExpensesCreateUpdateForm
+  ExpensesCreateUpdateForm,
+  Analytics,
+  Administration
 } from '@/views';
 
 Vue.use(VueRouter);
@@ -145,6 +147,22 @@ const routes = [
     props: true,
     meta: {
       title: 'Edit expense'
+    }
+  },
+  {
+    path: '/analytics',
+    name: 'Analytics',
+    component: Analytics,
+    meta: {
+      title: 'Analytics'
+    }
+  },
+  {
+    path: '/administration',
+    name: 'Administration',
+    component: Administration,
+    meta: {
+      title: 'Administration'
     }
   }
 ];

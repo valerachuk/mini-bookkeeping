@@ -1,0 +1,43 @@
+<div>
+  <v-btn
+    color="warning"
+    block
+    x-large
+    class="my-6"
+    @click="confirmDialog = true; actionToExecute = resetDatabase"
+  >
+    Reset database
+  </v-btn>
+
+  <v-btn
+    color="warning"
+    block
+    x-large
+    class="my-6"
+    @click="confirmDialog = true; actionToExecute = resetDatabaseAndFillWithTestData"
+  >
+    Reset database and fill it with test data
+  </v-btn>
+
+  <v-dialog v-model="confirmDialog" max-width="390">
+    <v-card>
+      <v-card-title>Are you sure ?</v-card-title>
+
+      <v-card-actions>
+        <v-spacer></v-spacer>
+
+        <v-btn color="primary" text @click="confirmDialog = false">
+          Cancel
+        </v-btn>
+
+        <v-btn
+          color="error"
+          text
+          @click="confirmDialog = false; actionToExecute()"
+        >
+          Agree
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
+</div>

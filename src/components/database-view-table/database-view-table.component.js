@@ -18,6 +18,10 @@ export default {
     showDownloadIcon: {
       type: Boolean,
       default: false
+    },
+    showActions: {
+      type: Boolean,
+      default: true
     }
   },
 
