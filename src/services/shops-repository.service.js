@@ -1,22 +1,21 @@
 import { DatabaseService } from '@/services';
-const { pool } = DatabaseService;
+const { query } = DatabaseService;
 
 export default {
   create (formData) {
-    return pool.query('INSERT INTO shops (`Name`) VALUES (?);', [formData.Name]);
+    return query('INSERT INTO shops (`Name`) VALUES (?);', [formData.Name]);
   },
   read (id) {
     if (id === undefined) {
-      return pool.query('SELECT * FROM shops')
-        .then(([result, fields]) => ({ items: result, fields: fields.map(field => field.name) }));
+      return query('SELECT * FROM shops');
     }
-    return pool.query('SELECT * FROM shops WHERE Id=?', [id])
-      .then(([result]) => result[0]);
+    return query('SELECT * FROM shops WHERE Id=?', [id])
+      .then(({ items }) => items[0]);
   },
   update (formData) {
-    return pool.query('UPDATE shops SET `Name`=? WHERE Id=?', [formData.Name, formData.Id]);
+    return query('UPDATE shops SET `Name`=? WHERE Id=?', [formData.Name, formData.Id]);
   },
   delete (id) {
-    return pool.query('DELETE FROM shops WHERE Id=?', [id]);
+    return query('DELETE FROM shops WHERE Id=?', [id]);
   }
 };

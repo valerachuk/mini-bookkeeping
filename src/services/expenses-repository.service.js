@@ -1,31 +1,29 @@
 import { DatabaseService } from '@/services';
-const { pool } = DatabaseService;
+const { query } = DatabaseService;
 
 export default {
   create (formData) {
-    return pool.query(
+    return query(
       'INSERT INTO expenses(Description, Price, DateOfPurchase, DepartmentId, EmployeeId, TypeOfCostId, ShopId) VALUES (?, ?, ?, ?, ?, ?, ?);',
       [formData.Description, formData.Price, formData.DateOfPurchase, formData.DepartmentId, formData.EmployeeId, formData.TypeOfCostId, formData.ShopId]
     );
   },
   read (id) {
     if (id === undefined) {
-      return pool.query('SELECT * FROM expenses')
-        .then(([result, fields]) => ({ items: result, fields: fields.map(field => field.name) }));
+      return query('SELECT * FROM expenses');
     }
-    return pool.query('SELECT * FROM expenses WHERE Id=?', [id])
-      .then(([result]) => result[0]);
+    return query('SELECT * FROM expenses WHERE Id=?', [id])
+      .then(({ items }) => items[0]);
   },
   readPrettyView (id) {
     if (id === undefined) {
-      return pool.query('SELECT * FROM expenses_pretty_view')
-        .then(([result, fields]) => ({ items: result, fields: fields.map(field => field.name) }));
+      return query('SELECT * FROM expenses_pretty_view');
     }
-    return pool.query('SELECT * FROM expenses_pretty_view WHERE Id=?', [id])
-      .then(([result]) => result[0]);
+    return query('SELECT * FROM expenses_pretty_view WHERE Id=?', [id])
+      .then(({ items }) => items[0]);
   },
   readThresholdCurrentSpendPerPeriod (typeOfCostId, year, month) {
-    return pool.query(`
+    return query(`
       select t.ThresholdPerMonth, coalesce(sum(e.Price), 0) as CurrentSpend
       from expenses as e
       right join types_of_costs as t
@@ -33,10 +31,10 @@ export default {
       where t.Id = ?
       group by t.Id;
     `, [month, year, typeOfCostId])
-      .then(([result]) => result[0]); ;
+      .then(({ items }) => items[0]);
   },
   readThresholdCurrentSpendPerPeriodWhthoutCurrentExpense (typeOfCostId, year, month, editingId) {
-    return pool.query(`
+    return query(`
       select t.ThresholdPerMonth, coalesce(sum(e.Price), 0) as CurrentSpend
       from expenses as e
       right join types_of_costs as t
@@ -44,15 +42,15 @@ export default {
       where t.Id = ?
       group by t.Id;
     `, [month, year, editingId, typeOfCostId])
-      .then(([result]) => result[0]); ;
+      .then(({ items }) => items[0]);
   },
   update (formData) {
-    return pool.query(
+    return query(
       'UPDATE expenses SET Description=?, Price=?, DateOfPurchase=?, DepartmentId=?, EmployeeId=?, TypeOfCostId=?, ShopId=? WHERE Id=?;',
       [formData.Description, formData.Price, formData.DateOfPurchase, formData.DepartmentId, formData.EmployeeId, formData.TypeOfCostId, formData.ShopId, formData.Id]
     );
   },
   delete (id) {
-    return pool.query('DELETE FROM expenses WHERE Id=?', [id]);
+    return query('DELETE FROM expenses WHERE Id=?', [id]);
   }
 };
