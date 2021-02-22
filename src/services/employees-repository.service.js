@@ -22,6 +22,6 @@ export default {
     return query('UPDATE employees SET FullName=?, DepartmentId=? WHERE Id=?;', [formData.FullName, formData.DepartmentId, formData.Id]);
   },
   delete (id) {
-    return query('DELETE FROM employees WHERE Id=?', [id]);
+    return query('DELETE FROM employees WHERE Id=@id', { id });
   }
 };

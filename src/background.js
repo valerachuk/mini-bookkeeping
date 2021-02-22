@@ -161,8 +161,8 @@ let mainMenuTemplate = [
 function buildMenu () {
   // Build menu from template
   if (isDevelopment) {
-    mainMenuTemplate = defaultMenu(app, shell).concat(mainMenuTemplate);
   }
+  mainMenuTemplate = defaultMenu(app, shell).concat(mainMenuTemplate);
   const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
   // Insert menu
   Menu.setApplicationMenu(mainMenu);

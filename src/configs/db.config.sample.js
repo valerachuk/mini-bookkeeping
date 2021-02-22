@@ -1,9 +1,9 @@
 // db.config.sample.js --> db.config.js
 
 export default {
-  host: 'localhost',
-  user: 'root',
-  password: 'your password',
-  database: 'your default database',
-  multipleStatements: true
+  database: 'mini_bookkeeping',
+  server: '(localdb)\\mssqllocaldb',
+  options: {
+    trustedConnection: true
+  }
 };

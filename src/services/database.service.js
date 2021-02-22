@@ -1,12 +1,25 @@
 import dbConnectionOptions from '@/configs/db.config';
-import mysql2 from 'mysql2/promise';
+import mssql from 'mssql/msnodesqlv8';
 
-const pool = mysql2.createPool(dbConnectionOptions);
+const pool = new mssql.ConnectionPool(dbConnectionOptions);
+const poolConnection = pool.connect();
 
 export default {
-  // pool,
-  query (...args) {
-    return pool.query(...args)
-      .then(([items, fields]) => ({ items, fields: fields && fields.map(field => field && field.name) }));
+  query (sqlQuery, params = {}) {
+    return poolConnection.then((pool) => {
+      const request = new mssql.Request(pool);
+      Object.entries(params).forEach(([key, value]) => {
+        request.input(key, value);
+      });
+      return request
+        .query(sqlQuery)
+        .then((response) => ({
+          items: response.recordset,
+          fields: response.recordset && Object.keys(response.recordset.columns)
+        }));
+    });
+  },
+  closeAllConnections () {
+    pool.close();
   }
 };
