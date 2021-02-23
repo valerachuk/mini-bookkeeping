@@ -12,7 +12,8 @@ module.exports = {
         copyright: 'Copyright © 2021 Valerii',
         extraResources: [
           'node_modules/msnodesqlv8/**',
-          'node_modules/mssql/**'
+          'node_modules/mssql/**',
+          'node_modules/tarn/**'
         ]
       }
     }

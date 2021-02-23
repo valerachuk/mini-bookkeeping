@@ -142,20 +142,20 @@ let mainMenuTemplate = [
         }
       }
     ]
-  },
-  {
-    label: 'Administration',
-    submenu: [
-      {
-        label: 'Open Admin Tools',
-        click () {
-          routerPush({
-            name: 'Administration'
-          });
-        }
-      }
-    ]
   }
+  // {
+  //   label: 'Administration',
+  //   submenu: [
+  //     {
+  //       label: 'Open Admin Tools',
+  //       click () {
+  //         routerPush({
+  //           name: 'Administration'
+  //         });
+  //       }
+  //     }
+  //   ]
+  // }
 ];
 
 function buildMenu () {
