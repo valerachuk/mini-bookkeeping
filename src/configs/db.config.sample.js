@@ -3,7 +3,7 @@
 export default {
   host: 'localhost',
   user: 'root',
-  password: 'your password',
-  database: 'your default database',
+  password: '<<<your password>>>',
+  database: 'mini_bookkeeping',
   multipleStatements: true
 };
